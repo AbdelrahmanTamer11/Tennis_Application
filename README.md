@@ -1,60 +1,61 @@
-- Introduction:
-This section provides a brief introduction to the Tennis Application, outlining its purpose and main functionality.
+# Tennis Application
 
-- Features
+## Introduction
 
-List and explain all the features of the application such as:
+This section provides a brief overview of the Tennis Application, outlining its purpose and main functionalities. The app is designed to provide real-time tennis match tracking and related features to enhance the experience for players and spectators alike.
 
-. Real-time score tracking.
-. Weather
-. Player statistics.
-. Match history.
-. Notifications for upcoming matches.
+## Features
 
-- Technologies Used
+- **Real-time Score Tracking**: Keeps track of scores during tennis matches in real time.
+- **Weather Information**: Displays current weather conditions at match locations.
+- **Player Statistics**: Shows detailed statistics for each player.
+- **Match History**: Records and displays past match results.
+- **Notifications**: Sends notifications for upcoming tennis matches.
 
-Detail all the technologies, frameworks, and libraries used in the project:
+## Technologies Used
 
-. Flutter: Used for building the multi-platform app.
-. Dart: The programming language used.
-. Firebase: For backend operations including database and authentication (if used).
-. APIs: External APIs integrated .
+- **Flutter**: Used for building the multi-platform application.
+- **Dart**: The programming language used.
+- **Firebase**: Manages backend operations including database and authentication.
+- **APIs**: Integrates external APIs for additional functionalities like weather.
 
-- Architecture
-Explain the architecture used in the application, including:
+## Architecture
 
-. BLoC Pattern: For state management, describing how BLoC separates business logic from UI.
-. MVC Components: How models, views, and controllers are structured if MVC is also integrated.
+- **BLoC Pattern**: Utilizes the Business Logic Component pattern for effective state management, ensuring a clean separation between business logic and user interface.
+- **MVC Components**: Implements the Model-View-Controller architecture to organize the codebase, enhancing maintainability and scalability.
 
-- Project Structure
-Provide an overview of the project directory structure:
+## Project Structure
+-lib/
+    blocs/      # Business logic components
+    models/     # Data models
+    views/      # UI screens
+    services/   # External services and API interactions
+    widgets/    # Reusable widget components
+-assets/
 
-lib:
-    blocs: Business logic components.
-    models: Data models.
-    views: UI screens.
-    services: External services and APIs interaction.
-    widgets: Reusable widget components.
+## Setup Instructions
 
-assets: 
-    Static assets like images and icons.
+1. Clone the repository.
+2. Install dependencies: `flutter pub get`.
+3. Configuration instructions (e.g., API keys or environment setup).
+4. Run the application: `flutter run`.
 
-- Setup Instructions
-Step-by-step guide on how to set up the project:
+## How to Use
 
-1- Clone the repository.
-2- Install dependencies: flutter pub get.
-3- Configuration instructions (e.g., API keys or environment setup).
-4- Run the application: flutter run.
+Provides guidance for new users on how to effectively navigate through various features of the app.
 
-- How to Use
-Guide new users on how to use the app effectively, including how to navigate through various features.
+## Contributing
 
-- Contributing
-Instructions for other developers on how to contribute to the project, including coding standards, pull request process, etc.
+Instructions for developers on how to contribute to the project, including coding standards and the pull request process.
 
-- License
+## License
+
 Specify the license under which the project is released.
 
-- Contact Information
-Provide details for users or developers to reach out if they have questions or need support.
+## Contact Information
+
+Details for users or developers to reach out if they have questions or need support.
+
+## Video Link
+
+Watch a demo of the app in action here: [Running App Video](https://drive.google.com/file/d/1eLLWSKXhfTl0iH9lDFJOOiiiIY0ekvSj/view?usp=drive_link)
