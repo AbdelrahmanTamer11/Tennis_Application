@@ -13,7 +13,7 @@ class WeatherApiClient {
     final response = await httpClient.get(Uri.parse(url));
 
     if (response.statusCode != 200) {
-      throw Exception('Error fetching weather data');
+      throw Exception('Error fetching weather data with status: ${response.statusCode}');
     }
 
     return Weather.fromJson(jsonDecode(response.body));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui; // Import this for ImageFilter
+import 'dart:ui' as ui; // Used for blurring the background image
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/weather/weather_bloc.dart';
 import '../../blocs/weather/weather_event.dart';
@@ -14,25 +14,25 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  final _cityTextController = TextEditingController();
+  final TextEditingController _cityTextController = TextEditingController();
 
   void _fetchWeather() {
-    // Dispatching WeatherRequested event to fetch weather
+    // Dispatch WeatherRequested event to fetch weather
     context.read<WeatherBloc>().add(WeatherRequested(city: _cityTextController.text));
   }
 
   @override
   void initState() {
     super.initState();
-    // Example to fetch weather on screen load if needed
-    _fetchWeather();
+    // Optionally, fetch weather on screen load if necessary
+    // _fetchWeather();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Weather Screen'),
+        title: Text('Weather Information'),
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
@@ -53,57 +53,50 @@ class _WeatherScreenState extends State<WeatherScreen> {
             child: BackdropFilter(
               filter: ui.ImageFilter.blur(sigmaX: 1.8, sigmaY: 1.8),
               child: Container(
-                color: Colors.black12.withOpacity(0.5),
+                color: Colors.black.withOpacity(0.2),
               ),
             ),
           ),
           SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
                   controller: _cityTextController,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
                   decoration: InputDecoration(
                     labelText: 'Enter City Name',
-                    labelStyle: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.white24,
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 7.0),
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(Icons.search, color: Colors.white),
                       onPressed: _fetchWeather,
                     ),
                   ),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                   onSubmitted: (value) => _fetchWeather(),
                 ),
                 SizedBox(height: 20),
                 BlocBuilder<WeatherBloc, WeatherState>(
                   builder: (context, state) {
                     if (state is WeatherLoadInProgress) {
-                      return CircularProgressIndicator();
+                      return Center(child: CircularProgressIndicator());
                     } else if (state is WeatherLoadSuccess) {
                       return _buildWeatherInfo(state.weather);
                     } else if (state is WeatherLoadFailure) {
                       return Text(
                         'Error: ${state.message}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                        style: TextStyle(color: Colors.red, fontSize: 18),
                       );
                     }
-                    return Container(); // Default empty container for initial state
+                    return Text(
+                      'Enter a city to get the weather',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    );
                   },
                 ),
               ],
@@ -116,35 +109,37 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   Widget _buildWeatherInfo(Weather weather) {
     return Card(
-      elevation: 4,
+      color: Colors.white70,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             ListTile(
-              leading: Icon(Icons.location_city),
-              title: Text(weather.cityName),
-              subtitle: Text('Current Temperature'),
+              leading: Icon(Icons.location_city, color: Colors.teal),
+              title: Text(weather.cityName, style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text('Current Temperature: ${weather.temperature.toStringAsFixed(1)}°C', style: TextStyle(color: Colors.black)),
             ),
-            Divider(),
-            Text(
-              '${weather.temperature.toStringAsFixed(1)} °C',
-              style: TextStyle(fontSize: 64, fontWeight: FontWeight.bold),
-            ),
-            Divider(),
+            Text('Description: ${weather.description}'),
+            Text('Humidity: ${weather.humidity}%'),
+            Text('Wind Speed: ${weather.windSpeed} km/h'),
+            SizedBox(height: 20),
             Text(
               '5-Day Forecast:',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             ListView.builder(
-              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(), // Disables scrolling within the ListView
+              shrinkWrap: true, // Allows ListView to size itself according to its children
               itemCount: weather.forecast.length,
               itemBuilder: (context, index) {
                 final forecast = weather.forecast[index];
                 return ListTile(
                   leading: Icon(Icons.calendar_today),
-                  title: Text('${forecast.date}'),
-                  trailing: Text('${forecast.temperature.toStringAsFixed(1)} °C'),
+                  title: Text(
+                    '${forecast.date.month}/${forecast.date.day}: ${forecast.temperature.toStringAsFixed(1)}°C',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('${forecast.description}, Humidity: ${forecast.humidity}%, Wind: ${forecast.windSpeed} km/h'),
                 );
               },
             ),
