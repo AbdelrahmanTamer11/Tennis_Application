@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "745157145741",
+    "project_id": "final-tennis-app",
+    "storage_bucket": "final-tennis-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745157145741:android:9f2e84cd48f3b0d8eb5ec4",
+        "android_client_info": {
+          "package_name": "com.example.tennis_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxDpfSEVKelYAD6ezKcSRoptZP3qLXFpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
